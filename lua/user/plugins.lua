@@ -19,7 +19,9 @@ return {
       })
     end
   },
+
   {"lukas-reineke/lsp-format.nvim"},
+
   { 'hrsh7th/cmp-nvim-lsp', config = function()
       vim.cmd [[cabbrev wq execute "Format sync" <bar> wq]]
     end
@@ -36,11 +38,37 @@ return {
       "hrsh7th/cmp-path",
     },
   },
-  { 'nvim-tree/nvim-web-devicons',    lazy = true }, --required for lualine
+
+  {
+  'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim', 'smartpde/telescope-recent-files' },
+    config = function ()
+      local telescope = require "telescope"
+      local actions = require "telescope.actions"
+      telescope.load_extension("recent_files")
+      telescope.setup {
+        defaults = {
+
+          prompt_prefix = " ",
+          selection_caret = " ",
+          path_display = { "smart" },
+          file_ignore_patterns = { ".git/", "node_modules" },
+
+          mappings = {
+            i = {
+              ["<Down>"] = actions.cycle_history_next,
+              ["<Up>"] = actions.cycle_history_prev,
+              ["<C-j>"] = actions.move_selection_next,
+              ["<C-k>"] = actions.move_selection_previous,
+            },
+          },
+        },
+      }
+    end
+  },
 
   { "nvim-lualine/lualine.nvim" },
-  { "nvim-telescope/telescope.nvim" },
-  { "smartpde/telescope-recent-files" },
+  { 'nvim-tree/nvim-web-devicons',    lazy = true }, --required for lualine
 
   { "junegunn/goyo.vim",              event = "VeryLazy" },
   { "folke/trouble.nvim",             requires = "kyazdani43/nvim-web-devicons" },
