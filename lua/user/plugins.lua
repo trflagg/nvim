@@ -18,7 +18,11 @@ return {
       })
     end
   },
-  { 'hrsh7th/cmp-nvim-lsp' },
+  {"lukas-reineke/lsp-format.nvim"},
+  { 'hrsh7th/cmp-nvim-lsp', config = function()
+      vim.cmd [[cabbrev wq execute "Format sync" <bar> wq]]
+    end
+  },
   {
     'hrsh7th/nvim-cmp',
     -- load cmp on InsertEnter
