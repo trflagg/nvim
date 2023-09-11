@@ -15,6 +15,7 @@ vim.g.mapleader = " "
 
 require("lazy").setup("user.plugins")
 
+require "user.options"
 require "user.lsp"
 require "user.colorscheme"
 require "user.keymaps"

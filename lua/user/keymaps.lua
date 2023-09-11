@@ -34,6 +34,7 @@ keymap("n", "<leader>ei", ":e ~/.config/nvim/lua/user<CR>")
 keymap("n", "<leader>ek", ":e ~/.config/nvim/lua/user/keymaps.lua<CR>")
 keymap("n", "<leader>ep", ":e ~/.config/nvim/lua/user/plugins.lua<CR>")
 keymap("n", "<leader>ec", ":e ~/.config/nvim/lua/user/colorscheme.lua<CR>")
+keymap("n", "<leader>el", ":e ~/.config/nvim/lua/user/lsp.lua<CR>")
 keymap("n", "<leader>s", ":source %<CR>")
 
 -- Remove highlights
@@ -72,4 +73,3 @@ keymap("x", "J", ":move '>+1<CR>gv-gv", silent)
 -- navigate prev/next lsp issue
 keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded' }})<CR>", silent)
 keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded' }})<CR>", silent)
-
