@@ -12,7 +12,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
+
 require("lazy").setup("user.plugins")
 
+require "user.lsp"
 require "user.colorscheme"
 require "user.keymaps"

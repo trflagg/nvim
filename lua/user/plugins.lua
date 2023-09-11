@@ -6,6 +6,7 @@ return {
       -- load the colorscheme here
       vim.cmd([[colorscheme onedark]])
     end, },
+{'neovim/nvim-lspconfig' },
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/nvim-cmp',     
   -- load cmp on InsertEnter
