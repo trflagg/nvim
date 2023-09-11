@@ -45,15 +45,9 @@ keymap("n", "<Tab>", ":b#<CR>", silent)
 -- Toggle quicklist
 keymap("n", "<leader>q", "<cmd>lua require('utils').toggle_quicklist()<CR>", silent)
 
--- enter goyo
-keymap("n", "<leader>gy", ":Goyo<CR>", silent)
-
 -- change background
 keymap("n", "<leader>ll", ":colorscheme onelight<CR>")
 keymap("n", "<leader>dd", ":colorscheme onedark<CR>")
---
--- Telescope
-keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 
 -- keymap("n", "<C-p>", "<CMD>lua require('telescope.builtin').git_files()<CR>")
 keymap("n", "<C-p>", ":Telescope find_files<CR>", opts)
