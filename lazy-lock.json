@@ -6,6 +6,7 @@
   "lazy.nvim": { "branch": "main", "commit": "2a9354c7d2368d78cbd5575a51a2af5bd8a6ad01" },
   "lsp-format.nvim": { "branch": "master", "commit": "99fc647d6d896535657e22a23eaa544ba09e1be2" },
   "lualine.nvim": { "branch": "master", "commit": "45e27ca739c7be6c49e5496d14fcf45a303c3a63" },
+  "neodev.nvim": { "branch": "main", "commit": "f0e574687aa51c513017155f003e8e8950ec6ff4" },
   "nvim-cmp": { "branch": "main", "commit": "5dce1b778b85c717f6614e3f4da45e9f19f54435" },
   "nvim-lspconfig": { "branch": "master", "commit": "0d24eeafb5b531c7fac610a3508207f33c76ce6d" },
   "nvim-web-devicons": { "branch": "master", "commit": "925e2aa30dc9fe9332060199c19f132ec0f3d493" },

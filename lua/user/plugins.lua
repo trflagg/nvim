@@ -8,6 +8,7 @@ return {
         vim.cmd([[colorscheme onedark]])
       end,
     },
+    { "folke/neodev.nvim", opts = {} },
     { 'neovim/nvim-lspconfig',
     config = function ()
       vim.diagnostic.config({
