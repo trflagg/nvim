@@ -31,7 +31,6 @@ require("lsp-format").setup {
 
 vim.cmd [[autocmd BufRead,BufNewFile */nvim\/lua\/user/* :FormatDisable]]
 
-
 -- add anything needed for on_attach
 local on_attach = function(client, bufnr)
   require("lsp-format").on_attach(client, bufnr)
@@ -42,30 +41,34 @@ if not lspconfig_status_ok then
 	return
 end
 
-local opts = {}
+local setup_opts = {}
+
+-- cmp capabilities
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- set up each server
 for _, server in pairs(servers) do
-	opts = {
+	setup_opts = {
 		on_attach = on_attach,
+    capabilities = capabilities,
 	}
 
 	server = vim.split(server, "@")[1]
 
 	local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
 	if require_ok then
-		opts = vim.tbl_deep_extend("force", conf_opts, opts)
+		setup_opts = vim.tbl_deep_extend("force", conf_opts, setup_opts)
 	end
 
-	lspconfig[server].setup(opts)
+	lspconfig[server].setup(setup_opts)
 end
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -73,7 +76,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
     -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -97,3 +100,47 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  window = {
+    completion = {},
+    border = "|",
+    winhighlight = "",
+    scrollbar = true
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
+    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+    -- C-b (back) C-f (forward) for snippet placeholder navigation.
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = {
+    { name = 'nvim_lsp' },
+  },
+}
