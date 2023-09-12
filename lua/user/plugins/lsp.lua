@@ -266,7 +266,7 @@ return {
 		},
 		config = function()
 			local cmp = require("cmp")
-			local luasnip = require("luasnip")
+			-- local luasnip = require("luasnip")
 			local lspkind = require("lspkind")
 			lspkind.init()
 
@@ -279,24 +279,23 @@ return {
 			cmp.setup({
 				snippet = {
 					expand = function(args)
-						luasnip.lsp_expand(args.body)
+						-- luasnip.lsp_expand(args.body)
 					end,
 				},
 				mapping = {
 					["<C-f>"] = cmp.mapping.scroll_docs(-4),
 					["<C-d>"] = cmp.mapping.scroll_docs(4),
 					["<C-n>"] = cmp.mapping(function(fallback)
-						if luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
-							fallback()
-						end
+						-- if luasnip.expand_or_jumpable() then
+						-- 	luasnip.expand_or_jump()
+						-- 	fallback()
+						-- end
 					end, { "i", "s" }),
 					["<C-p>"] = cmp.mapping(function(fallback)
-						if luasnip.jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
+						-- if luasnip.jumpable(-1) then
+						-- 	luasnip.jump(-1)
+						-- else
+						fallback()
 					end, { "i", "s" }),
 					-- ['<c-e>'] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
@@ -327,7 +326,7 @@ return {
 						menu = {
 							otter = "[🦦]",
 							copilot = "[]",
-							luasnip = "[snip]",
+							-- luasnip = "[snip]",
 							nvim_lsp = "[LSP]",
 							buffer = "[buf]",
 							path = "[path]",
@@ -347,7 +346,7 @@ return {
 					{ name = "path" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = "luasnip", keyword_length = 3, max_item_count = 3 },
+					-- { name = "luasnip", keyword_length = 3, max_item_count = 3 },
 					{ name = "pandoc_references" },
 					{ name = "buffer", keyword_length = 5, max_item_count = 3 },
 					{ name = "spell" },
@@ -366,12 +365,12 @@ return {
 				},
 			})
 			-- for friendly snippets
-			require("luasnip.loaders.from_vscode").lazy_load()
+			-- require("luasnip.loaders.from_vscode").lazy_load()
 			-- for custom snippets
-			require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
+			-- require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
 			-- link quarto and rmarkdown to markdown snippets
-			luasnip.filetype_extend("quarto", { "markdown" })
-			luasnip.filetype_extend("rmarkdown", { "markdown" })
+			-- 	luasnip.filetype_extend("quarto", { "markdown" })
+			-- 	luasnip.filetype_extend("rmarkdown", { "markdown" })
 		end,
 	},
 }

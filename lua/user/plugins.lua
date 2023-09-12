@@ -19,6 +19,8 @@ return {
 			require("neodev").setup({})
 		end,
 	},
+	-- { "saadparwaiz1/cmp_luasnip" },
+	-- { "L3MON4D3/LuaSnip" },
 
 	-- mason, masonlspconfig, lspconfig
 	-- these are set up in  user/lsp

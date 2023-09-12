@@ -34,7 +34,7 @@ keymap("n", "<leader>ei", ":e ~/.config/nvim/lua/user<CR>")
 keymap("n", "<leader>ek", ":e ~/.config/nvim/lua/user/keymaps.lua<CR>")
 keymap("n", "<leader>ep", ":e ~/.config/nvim/lua/user/plugins.lua<CR>")
 keymap("n", "<leader>ec", ":e ~/.config/nvim/lua/user/colorscheme.lua<CR>")
-keymap("n", "<leader>el", ":e ~/.config/nvim/lua/user/lsp.lua<CR>")
+keymap("n", "<leader>el", ":e ~/.config/nvim/lua/user/plugins/lsp.lua<CR>")
 keymap("n", "<leader>s", ":source %<CR>")
 
 -- Remove highlights
