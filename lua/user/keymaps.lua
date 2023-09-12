@@ -73,3 +73,5 @@ keymap("x", "J", ":move '>+1<CR>gv-gv", silent)
 -- navigate prev/next lsp issue
 keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded' }})<CR>", silent)
 keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded' }})<CR>", silent)
+
+-- comment

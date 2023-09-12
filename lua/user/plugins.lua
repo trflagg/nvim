@@ -1,5 +1,7 @@
 return {
     { "nvim-lua/plenary.nvim" },
+
+    -- colors!
     {
       "olimorris/onedarkpro.nvim",
       lazy = false,
@@ -8,7 +10,17 @@ return {
         vim.cmd([[colorscheme onedark]])
       end,
     },
-    { "folke/neodev.nvim", opts = {} },
+    
+    -- handle conflicts when messing around in .config/nvim
+    { "folke/neodev.nvim", opts = {}, config = function()
+        require("neodev").setup({})
+      end
+    },
+
+    -- mason, masonlspconfig, lspconfig
+    -- these are set up in  user/lsp
+    {  "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim", },
     { 'neovim/nvim-lspconfig',
     config = function ()
       vim.diagnostic.config({
@@ -64,6 +76,16 @@ return {
           },
         },
       }
+    end
+  },
+
+  {"terrortylor/nvim-comment", config = function()
+      require('nvim_comment').setup({
+        create_mappings = false,
+        line_mapping = "<leader>cl", 
+        operator_mapping = "<leader>c", 
+        comment_chunk_text_object = "ic"
+      })
     end
   },
 
