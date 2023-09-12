@@ -81,10 +81,10 @@ return {
 
   {"terrortylor/nvim-comment", config = function()
       require('nvim_comment').setup({
-        create_mappings = false,
-        line_mapping = "<leader>cl", 
-        operator_mapping = "<leader>c", 
-        comment_chunk_text_object = "ic"
+        -- create_mappings = false,
+        -- line_mapping = "<leader>/", 
+        -- operator_mapping = "<leader>c", 
+        -- comment_chunk_text_object = "ic"
       })
     end
   },

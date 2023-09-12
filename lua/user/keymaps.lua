@@ -70,8 +70,10 @@ keymap("i", "<C-q>", "<CMD>lua actions.smart_add_to_qflist + actions.open_qflist
 keymap("x", "K", ":move '<-2<CR>gv-gv", silent)
 keymap("x", "J", ":move '>+1<CR>gv-gv", silent)
 
+-- lsp bindings in ./lsp.lua
+
 -- navigate prev/next lsp issue
-keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded' }})<CR>", silent)
-keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded' }})<CR>", silent)
+-- keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded' }})<CR>", silent)
+-- keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded' }})<CR>", silent)
 
 -- comment
