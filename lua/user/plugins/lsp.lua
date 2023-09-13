@@ -16,6 +16,7 @@ local servers = {
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+    lazy = false,
 		tag = nil,
 		branch = "master",
 		run = ":TSUpdate",
@@ -240,12 +241,12 @@ return {
 			{ "hrsh7th/cmp-path" },
 			{ "hrsh7th/cmp-calc" },
 			{ "hrsh7th/cmp-emoji" },
-			{ "saadparwaiz1/cmp_luasnip" },
+			-- { "saadparwaiz1/cmp_luasnip" },
 			{ "f3fora/cmp-spell" },
 			{ "ray-x/cmp-treesitter" },
 			{ "kdheepak/cmp-latex-symbols" },
 			{ "jmbuhr/cmp-pandoc-references" },
-			{ "L3MON4D3/LuaSnip" },
+			-- { "L3MON4D3/LuaSnip" },
 			{ "rafamadriz/friendly-snippets" },
 			{ "onsails/lspkind-nvim" },
 

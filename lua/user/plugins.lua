@@ -12,15 +12,15 @@ return {
 	},
 
 	-- handle conflicts when messing around in .config/nvim
-	{
-		"folke/neodev.nvim",
-		opts = {},
-		config = function()
-			require("neodev").setup({})
-		end,
-	},
-	-- { "saadparwaiz1/cmp_luasnip" },
-	-- { "L3MON4D3/LuaSnip" },
+	-- {
+	-- 	"folke/neodev.nvim",
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		require("neodev").setup({})
+	-- 	end,
+	-- },
+	-- { "L3MON4D3/LuaSnip", lazy = false, version = "1.*",  build = "make install_jsregexp"  },
+	-- { "saadparwaiz1/cmp_luasnip", lazy = false },
 
 	-- mason, masonlspconfig, lspconfig
 	-- these are set up in  user/lsp
@@ -43,11 +43,11 @@ return {
 		"sbdchd/neoformat",
 		config = function()
 			vim.cmd([[
-        augroup fmt
-          autocmd!
-          autocmd BufWritePre * undojoin | Neoformat
-        augroup END
-      ]])
+			        augroup fmt
+			          autocmd!
+			          autocmd BufWritePre * undojoin | Neoformat
+			        augroup END
+			      ]])
 		end,
 	},
 
@@ -114,8 +114,8 @@ return {
 		end,
 	},
 
-	{ "nvim-lualine/lualine.nvim" },
-	{ "nvim-tree/nvim-web-devicons", lazy = true }, --required for lualine
+	{ "nvim-lualine/lualine.nvim", lazy = false },
+	{ "nvim-tree/nvim-web-devicons", lazy = false }, --required for lualine
 
 	{ "junegunn/goyo.vim", event = "VeryLazy" },
 	{ "folke/trouble.nvim", requires = "kyazdani43/nvim-web-devicons" },
