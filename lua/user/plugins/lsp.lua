@@ -13,10 +13,49 @@ local servers = {
 	"emmet_ls",
 }
 
+-- for cmp
+local check_backspace = function()
+	local col = vim.fn.col(".") - 1
+	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+end
+
+local kind_icons = {
+	Text = "",
+	Method = "",
+	Function = "",
+	Constructor = "",
+	Field = "",
+	Variable = "",
+	Class = "",
+	Interface = "",
+	Module = "",
+	Property = "",
+	Unit = "",
+	Value = "",
+	Enum = "",
+	Keyword = "",
+	Snippet = "",
+	Color = "",
+	File = "",
+	Reference = "",
+	Folder = "",
+	EnumMember = "",
+	Constant = "",
+	Struct = "",
+	Event = "",
+	Operator = "",
+	TypeParameter = "",
+}
+
+local cmp_status_ok, cmp = pcall(require, "cmp")
+if not cmp_status_ok then
+	return
+end
+
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-    lazy = false,
+		lazy = false,
 		tag = nil,
 		branch = "master",
 		run = ":TSUpdate",
@@ -231,147 +270,91 @@ return {
 	},
 
 	-- completion
-	{
-		"hrsh7th/nvim-cmp",
-		branch = "main",
-		dependencies = {
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "hrsh7th/cmp-nvim-lsp-signature-help" },
-			{ "hrsh7th/cmp-buffer" },
-			{ "hrsh7th/cmp-path" },
-			{ "hrsh7th/cmp-calc" },
-			{ "hrsh7th/cmp-emoji" },
-			-- { "saadparwaiz1/cmp_luasnip" },
-			{ "f3fora/cmp-spell" },
-			{ "ray-x/cmp-treesitter" },
-			{ "kdheepak/cmp-latex-symbols" },
-			{ "jmbuhr/cmp-pandoc-references" },
-			-- { "L3MON4D3/LuaSnip" },
-			{ "rafamadriz/friendly-snippets" },
-			{ "onsails/lspkind-nvim" },
 
-			-- optional
-			-- more things to try:
-			-- {
-			--   "zbirenbaum/copilot-cmp",
-			--   after = { "copilot.lua" },
-			--   dependencies = { "zbirenbaum/copilot.lua" },
-			--   config = function()
-			--     require("copilot").setup({
-			--       suggestion = { enabled = false },
-			--       panel = { enabled = false },
-			--     })
-			--     require("copilot_cmp").setup()
-			--   end
-			-- },
+	cmp.setup({
+		snippet = {
+			expand = function()
+				-- luasnip.lsp_expand(args.body) -- For `luasnip` users.
+			end,
 		},
-		config = function()
-			local cmp = require("cmp")
-			-- local luasnip = require("luasnip")
-			local lspkind = require("lspkind")
-			lspkind.init()
 
-			local has_words_before = function()
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0
-					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-			end
-
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						-- luasnip.lsp_expand(args.body)
-					end,
-				},
-				mapping = {
-					["<C-f>"] = cmp.mapping.scroll_docs(-4),
-					["<C-d>"] = cmp.mapping.scroll_docs(4),
-					["<C-n>"] = cmp.mapping(function(fallback)
-						-- if luasnip.expand_or_jumpable() then
-						-- 	luasnip.expand_or_jump()
-						-- 	fallback()
-						-- end
-					end, { "i", "s" }),
-					["<C-p>"] = cmp.mapping(function(fallback)
-						-- if luasnip.jumpable(-1) then
-						-- 	luasnip.jump(-1)
-						-- else
-						fallback()
-					end, { "i", "s" }),
-					-- ['<c-e>'] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({
-						select = true,
-					}),
-					["<Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif has_words_before() then
-							cmp.complete()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-				},
-				autocomplete = false,
-				formatting = {
-					format = lspkind.cmp_format({
-						with_text = true,
-						menu = {
-							otter = "[🦦]",
-							copilot = "[]",
-							-- luasnip = "[snip]",
-							nvim_lsp = "[LSP]",
-							buffer = "[buf]",
-							path = "[path]",
-							spell = "[spell]",
-							pandoc_references = "[ref]",
-							tags = "[tag]",
-							treesitter = "[TS]",
-							calc = "[calc]",
-							latex_symbols = "[tex]",
-							emoji = "[emoji]",
-						},
-					}),
-				},
-				sources = {
-					-- { name = 'copilot',                keyword_length = 0, max_item_count = 3 },
-					{ name = "otter" }, -- for code chunks in quarto
-					{ name = "path" },
-					{ name = "nvim_lsp" },
-					{ name = "nvim_lsp_signature_help" },
-					-- { name = "luasnip", keyword_length = 3, max_item_count = 3 },
-					{ name = "pandoc_references" },
-					{ name = "buffer", keyword_length = 5, max_item_count = 3 },
-					{ name = "spell" },
-					{ name = "treesitter", keyword_length = 5, max_item_count = 3 },
-					{ name = "calc" },
-					{ name = "latex_symbols" },
-					{ name = "emoji" },
-				},
-				view = {
-					entries = "native",
-				},
-				window = {
-					documentation = {
-						border = require("user.misc.style").border,
-					},
-				},
-			})
-			-- for friendly snippets
-			-- require("luasnip.loaders.from_vscode").lazy_load()
-			-- for custom snippets
-			-- require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snips" } })
-			-- link quarto and rmarkdown to markdown snippets
-			-- 	luasnip.filetype_extend("quarto", { "markdown" })
-			-- 	luasnip.filetype_extend("rmarkdown", { "markdown" })
-		end,
-	},
+		mapping = cmp.mapping.preset.insert({
+			["<C-k>"] = cmp.mapping.select_prev_item(),
+			["<C-j>"] = cmp.mapping.select_next_item(),
+			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+			["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+			["<C-e>"] = cmp.mapping({
+				i = cmp.mapping.abort(),
+				c = cmp.mapping.close(),
+			}),
+			-- Accept currently selected item. If none selected, `select` first item.
+			-- Set `select` to `false` to only confirm explicitly selected items.
+			["<CR>"] = cmp.mapping.confirm({ select = true }),
+			["<Tab>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item()
+				-- elseif luasnip.expandable() then
+				-- 	luasnip.expand()
+				-- elseif luasnip.expand_or_jumpable() then
+				-- 	luasnip.expand_or_jump()
+				elseif check_backspace() then
+					fallback()
+				else
+					fallback()
+				end
+			end, {
+				"i",
+				"s",
+			}),
+			["<S-Tab>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item()
+				-- elseif luasnip.jumpable(-1) then
+				-- 	luasnip.jump(-1)
+				else
+					fallback()
+				end
+			end, {
+				"i",
+				"s",
+			}),
+		}),
+		formatting = {
+			fields = { "kind", "abbr", "menu" },
+			format = function(entry, vim_item)
+				vim_item.kind = kind_icons[vim_item.kind]
+				vim_item.menu = ({
+					nvim_lsp = "",
+					nvim_lua = "",
+					luasnip = "",
+					buffer = "",
+					path = "",
+					emoji = "",
+				})[entry.source.name]
+				return vim_item
+			end,
+		},
+		sources = {
+			{ name = "path" },
+			{ name = "nvim_lsp" },
+			{ name = "treesitter" },
+			{ name = "nvim_lsp_signature_help" },
+			{ name = "nvim_lua" },
+			{ name = "nvim_lsp_document_symbol" },
+			{ name = "luasnip" },
+			{ name = "buffer" },
+		},
+		confirm_opts = {
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = false,
+		},
+		window = {
+			completion = cmp.config.window.bordered(),
+			documentation = cmp.config.window.bordered(),
+		},
+		experimental = {
+			ghost_text = true,
+		},
+	}),
 }
