@@ -63,6 +63,7 @@ keymap("n", "<leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>")
 keymap("n", "<leader><leader>", "<CMD>lua require('telescope.builtin').buffers()<CR>")
 keymap("n", "<leader>fo", "<CMD>lua require('telescope.builtin').oldfiles()<CR>")
 keymap("n", "<leader>fq", "<CMD>lua require('telescope.builtin').quickfix()<CR>")
+keymap("n", "<leader>fh", "<CMD>lua require('telescope.builtin').help_tags()<CR>")
 keymap("n", "<leader>f<leader>", [[<Cmd>lua require('telescope.builtin').resume()<CR>]], noremapAndSilent)
 keymap("i", "<C-q>", "<CMD>lua actions.smart_add_to_qflist + actions.open_qflist<CR>")
 

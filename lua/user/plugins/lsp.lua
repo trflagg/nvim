@@ -10,7 +10,7 @@ local servers = {
 	"jsonls",
 	"yamlls",
 	"solargraph",
-	"emmet_ls",
+	-- "emmet_ls",
 }
 
 -- for cmp
@@ -180,7 +180,7 @@ return {
 				buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 				buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 				buf_set_keymap("n", "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", opts)
-				buf_set_keymap("n", "<leader>lR", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+				buf_set_keymap("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 				client.server_capabilities.document_formatting = true
 			end
 
@@ -337,12 +337,11 @@ return {
 		},
 		sources = {
 			{ name = "path" },
-			{ name = "nvim_lsp" },
 			{ name = "treesitter" },
+			{ name = "nvim_lsp" },
 			{ name = "nvim_lsp_signature_help" },
 			{ name = "nvim_lua" },
 			{ name = "nvim_lsp_document_symbol" },
-			{ name = "luasnip" },
 			{ name = "buffer" },
 		},
 		confirm_opts = {
