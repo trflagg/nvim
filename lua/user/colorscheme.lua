@@ -7,6 +7,10 @@ if not status_ok then
 	return
 end
 
+-- diagnostics
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { bg = "NONE", fg = "#999999" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { bg = "NONE", fg = "#888888" })
+
 -- color the completion menu
 -- gray
 vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })

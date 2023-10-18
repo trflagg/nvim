@@ -1,4 +1,4 @@
--- Shorten function name
+-- Shorten functon name
 local keymap = vim.keymap.set
 -- Silent keymap option
 local opts = { silent = true }
@@ -54,6 +54,7 @@ keymap("n", "<leader>dd", ":colorscheme onedark<CR>")
 keymap("n", "<C-p>", ":Telescope find_files<CR>", opts)
 keymap("n", "<leader>fg", "<CMD>lua require('telescope.builtin').live_grep()<CR>")
 keymap("n", "<leader>fs", "<CMD>lua require('telescope.builtin').grep_string()<CR>")
+keymap("n", "<Leader>*", '<Cmd>lua require("telescope.builtin").grep_string()<CR>')
 keymap("n", "<leader>fr", "<CMD>lua require('telescope').extensions.recent_files.pick()<CR>")
 keymap("n", "<leader>fd", "<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>")
 keymap("n", "<leader>fi", "<CMD>lua require('telescope.builtin').lsp_implementation()<CR>")
@@ -78,3 +79,14 @@ keymap("x", "J", ":move '>+1<CR>gv-gv", silent)
 -- keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded' }})<CR>", silent)
 
 -- comment
+
+keymap("n", "]q", ":cn<CR>", noremapAndSilent)
+keymap("n", "[q", ":cp<CR>", noremapAndSilent)
+
+-- because I have a hard time hitting %
+keymap("n", "<c-s>", "%", silent)
+
+keymap("n", "<leader>nt", ":NvimTreeOpen<cr>", silent)
+
+-- try and toggle diagnostics
+--keymap("n", "<leader>do", "<CMD>lua vim.diagnostic.config({ underline = false })<CR>")

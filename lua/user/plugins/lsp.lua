@@ -10,6 +10,7 @@ local servers = {
 	"jsonls",
 	"yamlls",
 	"solargraph",
+	"graphql",
 	-- "emmet_ls",
 }
 
@@ -52,6 +53,11 @@ if not cmp_status_ok then
 	return
 end
 
+local function organize_imports()
+	local params = { command = "_typescript.organizeImports", arguments = { vim.api.nvim_buf_get_name(0) }, title = "" }
+	vim.lsp.buf.execute_command(params)
+end
+
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -74,6 +80,7 @@ return {
 					"yaml",
 					"lua",
 					"vim",
+					"graphql",
 				},
 				highlight = {
 					enable = true,
@@ -114,23 +121,25 @@ return {
 					move = {
 						enable = true,
 						set_jumps = true, -- whether to set jumps in the jumplist
-						goto_next_start = {
-							["]m"] = "@function.outer",
-							["]c"] = "@codechunk.inner",
-							["]]"] = "@class.outer",
-						},
-						goto_next_end = {
-							["]M"] = "@function.outer",
-							["]["] = "@class.outer",
-						},
 						goto_previous_start = {
 							["[m"] = "@function.outer",
+							["]q"] = "@function.inner",
 							["[c"] = "@codechunk.inner",
 							["[["] = "@class.outer",
 						},
 						goto_previous_end = {
 							["[M"] = "@function.outer",
 							["[]"] = "@class.outer",
+						},
+						goto_next_start = {
+							["]m"] = "@function.outer",
+							["]w"] = "@function.inner",
+							["]c"] = "@codechunk.inner",
+							["]]"] = "@class.outer",
+						},
+						goto_next_end = {
+							["]M"] = "@function.outer",
+							["]["] = "@class.outer",
 						},
 					},
 				},
@@ -210,6 +219,9 @@ return {
 					on_attach = on_attach,
 					capabilities = capabilities,
 					flags = lsp_flags,
+					commands = {
+						OrganizeImports = { organize_imports, description = "Organize Imports" },
+					},
 				}
 				server = vim.split(server, "@")[1]
 				lspconfig[server].setup(setup_opts)
@@ -337,7 +349,6 @@ return {
 		},
 		sources = {
 			{ name = "path" },
-			{ name = "treesitter" },
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lsp_signature_help" },
 			{ name = "nvim_lua" },

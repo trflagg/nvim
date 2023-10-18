@@ -95,6 +95,7 @@ return {
 							["<Up>"] = actions.cycle_history_prev,
 							["<C-j>"] = actions.move_selection_next,
 							["<C-k>"] = actions.move_selection_previous,
+							["<C-q>"] = actions.smart_send_to_qflist,
 						},
 					},
 				},
@@ -114,10 +115,33 @@ return {
 		end,
 	},
 
+	{
+		"nvim-tree/nvim-tree.lua",
+		version = "*",
+		lazy = false,
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		opts = {
+			diagnostics = {
+				enable = true,
+				icons = {
+					hint = "",
+					info = "",
+					warning = "",
+					error = "",
+				},
+			},
+		},
+	},
+
 	{ "nvim-lualine/lualine.nvim", lazy = false },
-	{ "nvim-tree/nvim-web-devicons", lazy = false }, --required for lualine
+	-- { "nvim-tree/nvim-web-devicons", lazy = false }, --required for lualine
 
 	{ "junegunn/goyo.vim", event = "VeryLazy" },
-	{ "folke/trouble.nvim", requires = "kyazdani43/nvim-web-devicons" },
+	{ "folke/trouble.nvim" },
 	{ "tpope/vim-eunuch" },
+
+	{ "prisma/vim-prisma" },
+	{ "tpope/vim-unimpaired", lazy = false },
 }
